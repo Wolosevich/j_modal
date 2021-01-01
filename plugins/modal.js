@@ -1,4 +1,4 @@
-function _createModal(options){
+function _createModal(options) {
   const modal = document.createElement('div')
   modal.classList.add('vmodal')
   modal.insertAdjacentHTML('afterbegin', `
@@ -6,14 +6,11 @@ function _createModal(options){
     <div class="modal-overlay">
       <div class="modal-window">
         <div class="modal-header">
-          <span class="modal-title">Modal title</span>
+          ${options.title}
           <span class="modal-close">&times;</span>
         </div>
         <div class="modal-body">
-          <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          </p>
-          <p>Lorem ipsum, dolor sit amet consectetur.
-          </p>
+          ${options.content}
         </div>
         <div class="modal-footer">
           <button>Oк</button>
@@ -22,27 +19,27 @@ function _createModal(options){
       </div>
     </div>
     `)
-    document.body.appendChild(modal)
-    return modal
+  document.body.appendChild(modal)
+  return modal
 }
 
-$.modal = function(options){
+$.modal = function (options) {
   const ANIMATION_SPEED = 800
   const $modal = _createModal(options)
   let closing = false
-  return{ 
+  return {
     open() {
-     !closing && $modal.classList.add('open')
+      !closing && $modal.classList.add('open')
     },
     close() {
       closing = true
       $modal.classList.remove('open')
       $modal.classList.add('hide')
-      setTimeout(()=>{
+      setTimeout(() => {
         $modal.classList.remove('hide')
         closing = false
       }, ANIMATION_SPEED)
     },
     destroy() {}
+  }
 }
-} 
